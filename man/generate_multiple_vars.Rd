@@ -38,5 +38,5 @@ data.frame
 generate_multiple_vars
 }
 \examples{
-#generate_new_vars(c(1,10),lag,c(2,3,4),"lagged_columns","_")
+# generate_new_vars(c(1,10),lag,c(2,3,4),"lagged_columns","_")
 }
