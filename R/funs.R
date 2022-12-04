@@ -11,17 +11,16 @@
 #' @return data.frame
 #' @export
 #'
-#' @examples #generate_new_vars(c(1,10),lag,c(2,3,4),"lagged_columns","_")
+#' @examples # generate_new_vars(c(1,10),lag,c(2,3,4),"lagged_columns","_")
 generate_multiple_vars <- function(col, .fun, vec, name, sep = "_", ...) {
-
   res_list <- list()
-  names_vec = c()
+  names_vec <- c()
 
   for (i in vec) {
     res_list[[paste(name, i, sep = sep)]] <- .fun(col, i, ...)
   }
 
-  df = as.data.frame(res_list)
+  df <- as.data.frame(res_list)
   return(df)
 }
 
@@ -35,9 +34,28 @@ generate_multiple_vars <- function(col, .fun, vec, name, sep = "_", ...) {
 #' @export
 #'
 #' @examples # df %>% fix_colnames("prefix")
-fix_colnames<- function(df,pattern){
-
-  colnames(df) <- stringr::str_remove(colnames(df),pattern)
+fix_colnames <- function(df, pattern) {
+  colnames(df) <- stringr::str_remove(colnames(df), pattern)
 
   return(df)
+}
+
+
+#' loads packages and attempt to install in not installed
+#'
+#' @param packages a character vector with packkages names to load
+#'
+#' @return data.frame with corrected column names
+#' @export
+#'
+load_packages <- function(packages, verbose = T) {
+  for (pkg in packages) {
+    if (!require(pkg, character.only = T)) {
+      install.packages(pkg)
+    } else {
+      if (verbose) {
+        message(paste("loaded ", pkg, sep = ""))
+      }
+    }
+  }
 }
