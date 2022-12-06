@@ -59,3 +59,21 @@ load_packages <- function(packages, verbose = T) {
     }
   }
 }
+
+
+
+#' Extracts date from a string
+#'
+#' @param char a character vector with dates to be extracted
+#' @param format = c("%d","%m","%y")
+#' @param sep ="-" separator
+#' @return a character vector
+#' @export
+#'
+extract_date <- function(char, format = c("%d", "%m", "%y"), sep = "-") {
+  format_dict <- c("%d" = "\\d{2}", "%m" = "\\d{2}", "%y" = "\\d{4}")
+
+  regex <- paste(format_dict[format], collapse = sep)
+
+  stringr::str_extract(char, regex)
+}
